@@ -125,16 +125,17 @@ const slideFullScreen = () => {
         item.addEventListener('click',(event)=>{
             if(event.target.classList.contains('slide-item')||event.target.classList.contains('slide-image')){
                 clearTimeout(timeoutID);
-
+                const numChild = leftSlideContainer.children.length;
                 const fon = document.createElement('div');
                 fon.className = 'fon';
-                fon.innerHTML = `<div class = "dialog"><img class="dialog-image" src="${leftImageItems[currentItem].src}"></img></div>`
+                fon.innerHTML = `<div class = "dialog"><img class="dialog-image" src="${leftImageItems[currentItem].src}"></img></div><div class="close-btn"></div><div class = "num-page">${currentItem+1}/${numChild}</div>`
                 document.querySelector('body').appendChild(fon);
-
+                document.querySelector('.close-btn').addEventListener('click',()=>{document.querySelector('body').removeChild(document.querySelector('.fon'));
+            })
                 document.addEventListener('keyup',(eventKey)=>{
 
                     if(eventKey.key === 'Escape'){
-                        const numChild = leftSlideContainer.children.length;
+                        // const numChild = leftSlideContainer.children.length;
 
                         if(document.querySelector('.fon')){
                         document.querySelector('body').removeChild(document.querySelector('.fon'));
@@ -147,8 +148,6 @@ const slideFullScreen = () => {
                     }
 
                 })
-
-
 
 
             }
