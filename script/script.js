@@ -8,7 +8,7 @@ let currentItem = 0,
 
 
 async function request () {
-        let response = await fetch("data.json");
+        let response = await fetch("data/data.json");
         let text = await response.json();
         text.arr.forEach(item =>{
             console.log(item);
@@ -18,7 +18,7 @@ async function request () {
         const numChild = leftSlideContainer.children.length;
 
         onClickItem();
-        onHover();
+        // onHover();
         autoStep(numChild,1000);
         slideFullScreen();
     } 
@@ -86,46 +86,69 @@ const autoStep = (count,delay) => {
    
 }
 
-const onHover = ()=>{
-    const rightContainer = document.querySelectorAll(".slide-but-item");
+// const onHover = ()=>{
+//     const rightContainer = document.querySelectorAll(".slide-but-item");
     
-    rightContainer.forEach((item)=>{
-        item.addEventListener("mouseenter",()=>{
-            console.log("fer")
-        })
-    })
+//     rightContainer.forEach((item)=>{
+//         item.addEventListener("mouseenter",()=>{
+//             console.log("fer")
+//         })
+//     })
     
-}
+// }
 
 
 
-document.querySelector('.press').addEventListener('click',() => {
-    clearTimeout(timeoutID);
-    const numChild = leftSlideContainer.children.length;
+// document.querySelector('.press').addEventListener('click',() => {
+//     clearTimeout(timeoutID);
+//     const numChild = leftSlideContainer.children.length;
 
-    translate = translate === 'translateX' ? 'translateY' : 'translateX';
-    document.querySelector('.slide-show').className = 'slide-show-column slide-show';
-    rightSlideContainer.className = 'slide-but-column slide-but';
-    document.querySelector('.slide-item').className = 'slide-item-column slide-item';
-    leftSlideContainer.className = 'slide-container-column slide-container';
-    document.querySelectorAll('.slide-but-item').forEach(item => {item.className = 'slide-but-item-column slide-but-item';});
+//     translate = translate === 'translateX' ? 'translateY' : 'translateX';
+//     document.querySelector('.slide-show').className = 'slide-show-column slide-show';
+//     rightSlideContainer.className = 'slide-but-column slide-but';
+//     document.querySelector('.slide-item').className = 'slide-item-column slide-item';
+//     leftSlideContainer.className = 'slide-container-column slide-container';
+//     document.querySelectorAll('.slide-but-item').forEach(item => {item.className = 'slide-but-item-column slide-but-item';});
     
-    autoStep(numChild,1000);
+//     autoStep(numChild,1000);
 
 
-})
+// })
+
 
 
 const slideFullScreen = () => {
+
     const leftSlideItems = document.querySelectorAll('.slide-item'),
         leftImageItems = document.querySelectorAll('.slide-image');
     leftSlideItems.forEach(item => {
         item.addEventListener('click',(event)=>{
             if(event.target.classList.contains('slide-item')||event.target.classList.contains('slide-image')){
+                clearTimeout(timeoutID);
+
                 const fon = document.createElement('div');
                 fon.className = 'fon';
-                fon.innerHTML = `<div class = "dialog"><img src="${leftImageItems[currentItem].src}"></img></div>`
+                fon.innerHTML = `<div class = "dialog"><img class="dialog-image" src="${leftImageItems[currentItem].src}"></img></div>`
                 document.querySelector('body').appendChild(fon);
+
+                document.addEventListener('keyup',(eventKey)=>{
+
+                    if(eventKey.key === 'Escape'){
+                        const numChild = leftSlideContainer.children.length;
+
+                        if(document.querySelector('.fon')){
+                        document.querySelector('body').removeChild(document.querySelector('.fon'));
+
+                        autoStep(numChild,1000);
+
+                        }
+                    } else if(eventKey.key === ''){
+
+                    }
+
+                })
+
+
 
 
             }
