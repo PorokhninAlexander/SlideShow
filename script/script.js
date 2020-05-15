@@ -20,7 +20,7 @@ request().then(item => {
     item.arr.forEach(image => createNewSlide(image))
     const numChild = leftSlideContainer.children.length;
     onClickItem();
-    autoStep(numChild, 1000);
+    autoStep(numChild, 3000);
     slideFullScreen();
 
 });
@@ -127,7 +127,7 @@ const slideFullScreen = () => {
             const numChild = leftSlideContainer.children.length;
             if (eventKey.keyCode === 27) {
                 document.querySelector('body').removeChild(document.querySelector('.fon'));
-                autoStep(numChild, 1000);
+                autoStep(numChild, 3000);
 
             } else if (eventKey.keyCode === 39) {
 
