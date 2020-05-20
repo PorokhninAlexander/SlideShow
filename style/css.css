@@ -166,7 +166,7 @@ li {
     right: 0;
     height: 40px;
     width: 40px;
-    background: url('/data/img/close.png') top left / cover no-repeat;
+    background: url("/data/img/close.png") top left / cover no-repeat;
     cursor: pointer;
 }
 
